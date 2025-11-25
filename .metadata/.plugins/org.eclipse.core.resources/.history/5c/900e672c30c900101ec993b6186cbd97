@@ -1,0 +1,26 @@
+package com.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.model.ClaimRequest;
+import com.service.ClaimService;
+
+@RestController
+@RequestMapping("/claims")
+public class ClaimController {
+@Autowired
+	ClaimService claimService;
+
+	@PostMapping("/create")
+	public ResponseEntity<?> createClaim(@RequestBody ClaimRequest request){
+		return ResponseEntity.ok(ClaimService.createClaim(request));
+		
+	}
+	
+}

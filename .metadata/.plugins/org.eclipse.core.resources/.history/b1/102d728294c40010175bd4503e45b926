@@ -1,0 +1,40 @@
+package com.model;
+
+
+import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+
+@Entity
+public class User {
+@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	public long id;
+@NotNull
+@Column(nullable = false)
+String userid;
+@NotNull
+@Column(nullable = false)
+String password;
+String role;
+
+public String getRole() {
+	return role;
+}
+public String getUserid() {
+	return userid;
+}
+public void setUserid(String userName) {
+	this.userid = userName;
+}
+public String getPassword() {
+	return password;
+}
+public void setPassword(String password) {
+	this.password = password;
+}
+	
+	public static class UserLoginRequest{
+		
+	}
+}

@@ -1,0 +1,13 @@
+package com.model;
+
+
+public class ClaimRequest {
+
+	public double Amount;
+	public long EmpId;
+	public String Description;
+	public Long getEmpId() {
+		// TODO Auto-generated method stub
+		return EmpId;
+	}
+}

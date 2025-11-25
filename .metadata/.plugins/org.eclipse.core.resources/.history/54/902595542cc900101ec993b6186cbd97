@@ -1,0 +1,15 @@
+package com.service;
+
+import org.springframework.stereotype.Service;
+
+import com.model.Claim;
+
+@Service
+public class ClaimService {
+
+	
+	public Claim CreateClaim(ClaimRequest req) {
+		Claim claim= new Claim();
+		
+	}
+}

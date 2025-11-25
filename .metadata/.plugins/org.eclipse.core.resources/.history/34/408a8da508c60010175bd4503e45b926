@@ -1,0 +1,6 @@
+package com.model;
+
+public class UserLoginRequest { 
+    private String userid;
+    private String password;
+}

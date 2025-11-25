@@ -1,0 +1,52 @@
+package com.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+
+@Entity
+public class ClaimApproval {
+
+	@Id
+	private long id;
+	 private String employeeId;
+	    private String approverId;
+	    private String status;   // PENDING / APPROVED / REJECTED
+	    private String remarks;
+
+	    public ClaimApproval() {}
+
+		public String getEmployeeId() {
+			return employeeId;
+		}
+
+		public void setEmployeeId(String employeeId) {
+			this.employeeId = employeeId;
+		}
+
+		public String getApproverId() {
+			return approverId;
+		}
+
+		public void setApproverId(String approverId) {
+			this.approverId = approverId;
+		}
+
+		public String getStatus() {
+			return status;
+		}
+
+		public void setStatus(String status) {
+			this.status = status;
+		}
+
+		public String getRemarks() {
+			return remarks;
+		}
+
+		public void setRemarks(String remarks) {
+			this.remarks = remarks;
+		}
+
+	    // getters and setters
+	}		
+

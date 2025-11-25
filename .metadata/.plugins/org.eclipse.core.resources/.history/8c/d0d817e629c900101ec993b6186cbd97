@@ -1,0 +1,20 @@
+package com.model;
+
+import java.util.Date;
+import jakarta.persistence.*;
+@Entity
+public class Claim {
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private long claimId;
+	private String emp_id;
+	@Enumerated(EnumType.STRING)
+	private claimStatus status= claimStatus.PENDING;
+	private String description;
+	private double amount;
+	private Date claimCreatedOn;  
+	
+	public enum claimStatus{
+		PENDING, APPROVED, REJECTED;
+	}
+}
