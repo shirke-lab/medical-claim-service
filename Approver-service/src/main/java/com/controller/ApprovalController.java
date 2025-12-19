@@ -1,48 +1,44 @@
 package com.controller;
 
 import java.util.List;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.model.Approval;
 import com.model.ClaimApproval;
-import com.repository.ClaimApprovalRepository;
+import com.service.ApprovalService;
+import com.service.ApprovalServiceImpl;
 
 @RestController
 @RequestMapping("/approval")
 public class ApprovalController {
-	private final ClaimApprovalRepository repo;
 
-    public ApprovalController(ClaimApprovalRepository repo) {
-        this.repo = repo;
+    private final ApprovalServiceImpl service;
+
+    public ApprovalController(ApprovalServiceImpl service) {
+        this.service = service;
     }
 
-    // Fetch all pending claims for this approver
-    @GetMapping("/pending/{approverId}")
-    public List<ClaimApproval> getPending(@PathVariable String approverId) {
-        return repo.findByApproverIdAndStatus(approverId, "PENDING");
+    // GET all pending (SUBMITTED)
+    @GetMapping("/pending")
+    public ResponseEntity<List<Approval>> getPending() {
+        return ResponseEntity.ok(service.findPendingApprovals());
     }
 
-    // Approve or Reject
+    // Approve or reject
     @PostMapping("/decision/{id}")
-    public String updateDecision(
+    public ResponseEntity<Approval> decision(
             @PathVariable Long id,
-            @RequestParam String status, 
-            @RequestParam(required = false) String remarks) {
+            @RequestParam String status,
+            @RequestParam(required=false) String remarks) {
+        Approval updated = service.decide(id, status, remarks);
+        return ResponseEntity.ok(updated);
+    }
 
-        ClaimApproval ca = repo.findById(id).orElseThrow();
-
-        ca.setStatus(status); // APPROVED or REJECTED
-        ca.setRemarks(remarks);
-
-        repo.save(ca);
-
-        return "Decision saved.";
+    // Assign an approver (optional)
+    @PostMapping("/assign/{id}")
+    public ResponseEntity<ClaimApproval> assign(@PathVariable Long id, @RequestParam String approverId) {
+        ClaimApproval updated = service.assignApprover(id, approverId);
+        return ResponseEntity.ok(updated);
     }
 }
-	
-

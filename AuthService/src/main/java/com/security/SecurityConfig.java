@@ -10,10 +10,10 @@ import com.util.JwtUtili;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-@EnableMethodSecurity(prePostEnabled = true)
-@Configuration
-public class SecurityConfig {
 
+@Configuration
+@EnableMethodSecurity
+public class SecurityConfig {
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -21,13 +21,15 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtUtili jwtutil) throws Exception {
-        http.csrf(csrf -> csrf.disable()) // Disable CSRF
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtUtili jwtUtili) throws Exception {
+
+        http
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login").permitAll() // Allow unauthenticated access to this endpoint
-                .anyRequest().authenticated() // Require authentication for other requests
+                .requestMatchers("/login", "/createUser").permitAll()
+                .anyRequest().authenticated()
             )
-           .addFilterBefore(new JwtFilter(jwtutil), UsernamePasswordAuthenticationFilter.class); // Use HTTP Basic authentication (for testing purposes)
+            .addFilterBefore(new JwtFilter(jwtUtili), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
