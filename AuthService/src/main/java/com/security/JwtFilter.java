@@ -35,27 +35,27 @@ public class JwtFilter extends OncePerRequestFilter {
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain)
-            throws ServletException, IOException {
-
-        String authHeader = request.getHeader("Authorization");
-
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
-
-            String username = jwtUtil.extractUserName(token);
-
-            if (username != null &&
-                SecurityContextHolder.getContext().getAuthentication() == null &&
-                jwtUtil.validateToken(token, username)) {
-
-                List<GrantedAuthority> authorities = jwtUtil.extractAuthorities(token);
-
-                UsernamePasswordAuthenticationToken auth =
-                        new UsernamePasswordAuthenticationToken(username, null, authorities);
-
-                SecurityContextHolder.getContext().setAuthentication(auth);
-            }
-        }
+                  throws ServletException, IOException {
+//
+//        String authHeader = request.getHeader("Authorization");
+//
+//        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+//            String token = authHeader.substring(7);
+//
+//            String username = jwtUtil.extractUserName(token);
+//
+//            if (username != null &&
+//                SecurityContextHolder.getContext().getAuthentication() == null &&
+//                jwtUtil.validateToken(token, username)) {
+//
+//                List<GrantedAuthority> authorities = jwtUtil.extractAuthorities(token);
+//
+//                UsernamePasswordAuthenticationToken auth =
+//                        new UsernamePasswordAuthenticationToken(username, null, authorities);
+//
+//                SecurityContextHolder.getContext().setAuthentication(auth);
+//            }
+//        }
 
         filterChain.doFilter(request, response);
     }
