@@ -21,7 +21,12 @@ public class claimController {
 	
 	@PostMapping("/create")
 	public ResponseEntity<?> createClaim(@RequestBody ClaimRequest request){
-		return ResponseEntity.ok(claimService.createClaim(request));
+		
+		System.out.println("employee id is "+request.getempid());
+		System.out.println("claim description -"+request.getdescription());
+		System.out.println("amount is -"+request.getamount());
+		
+				return ResponseEntity.ok(claimService.createClaim(request));
 		
 	}
 	

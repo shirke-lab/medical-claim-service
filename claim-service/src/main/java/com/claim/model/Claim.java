@@ -62,9 +62,9 @@ public class Claim {
 		return claimCreatedOn;
 	}
 
-	public void setEmpid(String empId2) {
+	public void setEmpid(String empid) {
 		// TODO Auto-generated method stub
-	this.empid=	empId2;
+	this.empid=	empid;
 	}
 	
 }

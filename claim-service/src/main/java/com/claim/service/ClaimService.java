@@ -3,8 +3,8 @@ package com.claim.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.claim.model.Claim;
-import com.claim.model.ClaimRequest;
+import com.claim.model.*;
+
 import com.claim.repository.ClaimRepository;
 
 @Service
@@ -19,9 +19,9 @@ public class ClaimService {
 
 	    public Claim createClaim(ClaimRequest req) {
 		Claim claim= new Claim();
-		claim.setEmpid(req.getEmpId());
-		claim.setAmount(req.getAmount());
-		claim.setDescription(req.getDescription());
+		claim.setEmpid(req.getempid());
+		claim.setAmount(req.getamount());
+		claim.setDescription(req.getdescription());
 		
 		Claim saved=repo.save(claim);
 		producer.sendClaim(saved);
