@@ -1,4 +1,4 @@
-package com.assignment.rabbit;
+package com.assignment.service;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,12 +11,9 @@ public class AssignmentProducer {
     private final RabbitTemplate rabbitTemplate;
     @Value("${rabbit.exchange}") private String exchange;
     @Value("${rabbit.routing.assignment}") private String routingKey;
-
     public AssignmentProducer(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
-
     public void sendAssignment(AssignmentMessage msg) {
-        rabbitTemplate.convertAndSend(exchange, routingKey, msg);
-    }
-}
+        rabbitTemplate.convertAndSend(exchange, routingKey, msg);		
+    }}

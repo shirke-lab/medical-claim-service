@@ -15,9 +15,7 @@ public class ClaimService {
 		 this.repo=repo;
 		 this.producer= producer;
 	 }
-	      
-
-	    public Claim createClaim(ClaimRequest req) {
+	 	public Claim createClaim(ClaimRequest req) {
 		Claim claim= new Claim();
 		claim.setEmpid(req.getempid());
 		claim.setAmount(req.getamount());

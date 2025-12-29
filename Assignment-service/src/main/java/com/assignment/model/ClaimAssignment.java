@@ -53,9 +53,4 @@ public class ClaimAssignment {
 	public void setAssignedAt(Date assignedAt) {
 		this.assignedAt = assignedAt;
 	}
-	
-	
-	
-
-
-}
+	}

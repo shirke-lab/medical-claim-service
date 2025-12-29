@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.assignment.model.ClaimAssignment;
 import com.assignment.repository.ClaimAssignmentRepository;
-import com.assignment.rabbit.AssignmentProducer;
 import com.assignment.dto.AssignmentMessage;
 
 @Service
@@ -30,15 +29,15 @@ public class AssignmentService {
         a.setEmployeeId(employeeId);
         a.setAssignerId(assignerId);
         a.setApproverId(approverId);
-        a.setStatus("ASSIGNED");
+        a.setStatus("pending");
         a.setAssignedAt(new Date());
         ClaimAssignment saved = repo.save(a);
 
         AssignmentMessage msg = new AssignmentMessage();
         msg.setClaimId(claimId);
         msg.setEmployeeId(employeeId);
-        msg.setApproverId(approverId);
-        msg.setAssignerId(assignerId);
+//        msg.setApproverId(approverId);
+//        msg.setAssignerId(assignerId);
 
         producer.sendAssignment(msg);
 
