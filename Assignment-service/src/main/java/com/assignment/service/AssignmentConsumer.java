@@ -28,7 +28,7 @@ public void receiveClaim(AssignmentMessage msg) {
 
     ClaimAssignment assignment = new ClaimAssignment();
     assignment.setClaimId(msg.getClaimId());
-    assignment.setEmployeeId(msg.getEmployeeId());
+    //assignment.setEmployeeId(msg.getEmployeeId());
     assignment.setStatus("pending");
     assignment.setAssignedAt(new Date());
 

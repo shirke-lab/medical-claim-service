@@ -28,7 +28,7 @@ public class User {
     private Role role;
 
     public enum Role {
-        ADMIN, EMPLOYEE, APPROVER, ASSIGNER
+        ADMIN, EMPLOYEE, APPROVER, MANAGER
     }
 
     // getters and setters

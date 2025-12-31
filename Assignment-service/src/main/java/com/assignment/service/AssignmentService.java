@@ -26,9 +26,9 @@ public class AssignmentService {
     public ClaimAssignment assignClaim(Long claimId, String employeeId, String assignerId, String approverId) {
         ClaimAssignment a = new ClaimAssignment();
         a.setClaimId(claimId);
-        a.setEmployeeId(employeeId);
-        a.setAssignerId(assignerId);
-        a.setApproverId(approverId);
+//        a.setEmployeeId(employeeId);
+//        a.setAssignerId(assignerId);
+//        a.setApproverId(approverId);
         a.setStatus("pending");
         a.setAssignedAt(new Date());
         ClaimAssignment saved = repo.save(a);

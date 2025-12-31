@@ -13,7 +13,7 @@ public interface ClaimAssignmentRepository extends JpaRepository<ClaimAssignment
 
 	List<ClaimAssignment> findByStatus(String status);
 	
-    List<ClaimAssignment> findByApproverIdAndStatus(String approverId, String status);
+   // List<ClaimAssignment> findByApproverIdAndStatus(String approverId, String status);
 
 	
 }

@@ -42,7 +42,7 @@ public class JwtFilter extends OncePerRequestFilter {
             if (username != null &&
                 SecurityContextHolder.getContext().getAuthentication() == null &&
                 jwtUtil.validateToken(token, username)) {
-
+ 
                 List<GrantedAuthority> authorities =
                         jwtUtil.extractAuthorities(token);
 
