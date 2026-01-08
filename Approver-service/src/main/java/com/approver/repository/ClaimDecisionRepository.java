@@ -1,16 +1,15 @@
-package com.repository;
+package com.approver.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import com.model.ClaimApproval;
+import com.approver.model.ClaimDecision;
 
 @Repository
-	public interface ClaimApprovalRepository extends JpaRepository<ClaimApproval, Long> {
+	public interface ClaimDecisionRepository extends JpaRepository<ClaimDecision, Long> {
 
-	    List<ClaimApproval> findByApproverIdAndStatus(String approverId, String status);
+	    List<ClaimDecision> findByApproverIdAndStatus(String approverId, String status);
 
 	}
 

@@ -1,9 +1,9 @@
-package com.repository;
+package com.approver.repository;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.model.Approval;
+import com.approver.model.Approval;
 
 
 public interface ApprovalRepository extends JpaRepository<Approval, Long> {

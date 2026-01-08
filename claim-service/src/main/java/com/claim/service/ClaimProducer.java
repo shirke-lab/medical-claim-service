@@ -2,7 +2,7 @@ package com.claim.service;
 
 //import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -34,10 +34,10 @@ public class ClaimProducer {
 	//	msg.setStatus(claim.getStatus());
 		msg.setStatus(claim.getStatus().name());
 
-		
+		System.out.println("emp id is - - - >"+msg.getEmpId());
 		 rabbitTemplate.convertAndSend("claim.exchange", "claim.routing.key", msg);
 		
-		System.out.println("Claim published" +msg.getClaimId());
+		System.out.println("Claim published  - " +msg.getClaimId());
 		}}
 
 

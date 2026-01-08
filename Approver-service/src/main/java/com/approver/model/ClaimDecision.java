@@ -1,4 +1,4 @@
-package com.model;
+package com.approver.model;
 
 import jakarta.persistence.Entity;
 
@@ -7,12 +7,12 @@ import java.time.Instant;
 import jakarta.persistence.*;
 
 @Entity
-public class ClaimApproval {
+public class ClaimDecision {
 
 	@Id
 	private long id;
-	private String claim_id;
-	 private String employeeId;
+	private String claimId;
+	 private String empId;
 	    private String approverId;
 	    private String status;   // PENDING / APPROVED / REJECTED
 	    private String remarks;
@@ -21,17 +21,19 @@ public class ClaimApproval {
 	    private Instant createdAt = Instant.now();
 	    private Instant updatedAt = Instant.now();
 
-	   public ClaimApproval() {}
-		public String getEmployeeId() {
-			return employeeId;
+	  public ClaimDecision() {
+		// TODO Auto-generated constructor stub
+	}
+		public String getempId() {
+			return empId;
 		}
 		
 		public void setClaimId(long id) {
 			this.id=id;
 		}
 
-		public void setEmployeeId(String employeeId) {
-			this.employeeId = employeeId;
+		public void setempId(String employeeId) {
+			this.empId = employeeId;
 		}
 
 		public String getApproverId() {
@@ -57,8 +59,8 @@ public class ClaimApproval {
 		public void setRemarks(String remarks) {
 			this.remarks = remarks;
 		}
-		public String getClaim_id() {
-			return claim_id;
+		public String getclaimId() {
+			return claimId;
 		}
 		public Instant getCreatedAt() {
 			return createdAt;
@@ -66,8 +68,8 @@ public class ClaimApproval {
 		public Instant getUpdatedAt() {
 			return updatedAt;
 		}
-		public void setClaim_id(String claim_id) {
-			this.claim_id = claim_id;
+		public void setclaimId(String claim_id) {
+			this.claimId = claim_id;
 		}
 		public void setCreatedAt(Instant createdAt) {
 			this.createdAt = createdAt;

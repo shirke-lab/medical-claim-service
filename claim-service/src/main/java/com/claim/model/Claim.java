@@ -7,7 +7,7 @@ public class Claim {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long claimId;
-	private String empid;
+	private String empId;
 	@Enumerated(EnumType.STRING)
 	private claimStatus status= claimStatus.PENDING;
 	private String description;
@@ -41,30 +41,23 @@ public class Claim {
 	public long getClaimId() {
 		return claimId;
 	}
-
 	public String getEmpid() {
-		return empid;
+		return empId;
 	}
-
 	public claimStatus getStatus() {
 		return status;
 	}
-
 	public String getDescription() {
 		return description;
 	}
-
 	public double getAmount() {
 		return amount;
 	}
-
 	public Date getClaimCreatedOn() {
 		return claimCreatedOn;
 	}
-
 	public void setEmpid(String empid) {
 		// TODO Auto-generated method stub
-	this.empid=	empid;
+	this.empId=	empid;
 	}
-	
 }

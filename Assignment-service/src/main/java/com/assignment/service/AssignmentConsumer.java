@@ -24,14 +24,15 @@ public class AssignmentConsumer {
 )
 public void receiveClaim(AssignmentMessage msg) {
 
-    System.out.println("🔥 MESSAGE RECEIVED: " + msg.getClaimId());
-
+    System.out.println("New MESSAGE RECEIVED: " + msg.getClaimId());
+System.out.println(msg.getemployeeId());
     ClaimAssignment assignment = new ClaimAssignment();
     assignment.setClaimId(msg.getClaimId());
-    //assignment.setEmployeeId(msg.getEmployeeId());
+    assignment.setEmpId(msg.getemployeeId());
     assignment.setStatus("pending");
+    assignment.setAmount(msg.getAmount());
     assignment.setAssignedAt(new Date());
-
+System.out.println("emp id is"+msg.getemployeeId());
     repository.save(assignment);
 }
  

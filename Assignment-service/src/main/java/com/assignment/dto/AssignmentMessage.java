@@ -1,14 +1,15 @@
 package com.assignment.dto;
 
-import java.io.Serializable;
+//import java.io.Serializable;
 
-public class AssignmentMessage implements Serializable {
+public class AssignmentMessage  {
 	   public AssignmentMessage()
 	   {
 	   }
 	   
     private Long claimId;
-    private String employeeId;
+    private String empId;
+    private double amount;
 //    private String approverId;
 //    private String assignerId;
     private String status;
@@ -17,16 +18,20 @@ public class AssignmentMessage implements Serializable {
     	this.status= status;    }   
     	public Long getClaimId() {
 		return claimId;	}
-	public String getEmployeeId() {
-		return employeeId;	}
+	public String getemployeeId() {
+		return empId;	}
 //	public String getApproverId() {
 //		return approverId;	}
-//	public String getAssignerId() {
-//		return assignerId;	}
+	public void setAmount(double amount) {
+		this.amount=amount;
+	}
+	public double getAmount() {
+		return amount;
+	}
 	public void setClaimId(Long claimId) {
 		this.claimId = claimId;	}
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;	}
+	public void setempId(String employeeId) {
+		this.empId = employeeId;	}
 //	public void setApproverId(String approverId) {
 //		this.approverId = approverId;	}
 //	public void setAssignerId(String assignerId) {

@@ -2,6 +2,9 @@ package com.assignment.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,9 +13,11 @@ public class ClaimAssignment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
-	
+	@Nonnull
 	private Long claimId;
-//	private String employeeId;
+private double amount;
+    @JsonProperty("empid")
+	private String empid;
 //	private String assignerId;
 //	private String approverId;
 	private String status;
@@ -20,15 +25,16 @@ public class ClaimAssignment {
 	public Long getClaimId() {
 		return claimId;
 	}
-//	public String getEmployeeId() {
-//		return employeeId;
-//	}
-//	public String getAssignerId() {
-//		return assignerId;
-//	}
-//	public String getApproverId() {
-//		return approverId;
-//	}
+	public String getEmpId() {
+		return empid;
+	}
+public void setAmount(double amount) {
+	this.amount=amount;
+}
+public double getAmount() {
+	return amount;
+}
+	
 	public String getStatus() {
 		return status;
 	}
@@ -38,9 +44,9 @@ public class ClaimAssignment {
 	public void setClaimId(Long claimId) {
 		this.claimId = claimId;
 	}
-//	public void setEmployeeId(String employeeId) {
-//		this.employeeId = employeeId;
-//	}
+	public void setEmpId(String empid) {
+		this.empid = empid;
+	}
 //	public void setAssignerId(String assignerId) {
 //		this.assignerId = assignerId;
 //	}

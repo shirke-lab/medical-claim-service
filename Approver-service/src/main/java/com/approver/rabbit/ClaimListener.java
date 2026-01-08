@@ -1,33 +1,37 @@
-package com.rabbit;
+package com.approver.rabbit;
 
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
-import com.model.ClaimApproval;
-import com.repository.ClaimApprovalRepository;
-import com.service.ApprovalServiceImpl;
-
+import com.approver.dto.ClaimMessage;
+import com.approver.model.ClaimDecision;
+import com.approver.repository.ClaimDecisionRepository;
+import com.approver.service.ApprovalServiceImpl;
+@EnableRabbit
 @Service
 public class ClaimListener {
 	private final ApprovalServiceImpl approvalService;
-	private final ClaimApprovalRepository repo;
+	private final ClaimDecisionRepository repo;
 
-    public ClaimListener(ClaimApprovalRepository repo, ApprovalServiceImpl approvalService) {
+    public ClaimListener(ClaimDecisionRepository repo, ApprovalServiceImpl approvalService) {
         this.approvalService = approvalService;
 		this.repo = repo;
     }
 
-    @RabbitListener(queues = "claim_submit_queue")
-    public void receiveClaim(ClaimMessage message) {
+    @RabbitListener(queues = "approver_queue",
+    		containerFactory="rabbitListenerContainerFactory")
+    
+    public void readClaim(ClaimMessage message) {
 	
-	
+    	System.out.println("New MESSAGE RECEIVED: " + message.getClaimId());
 
-    ClaimApproval approval = new ClaimApproval();
+    ClaimDecision approval = new ClaimDecision();
     approval.setClaimId(message.getClaimId());
-    approval.setEmployeeId(message.getEmployeeId());
+    //approval.setEmployeeId(message.getEmployeeId());
     approval.setStatus("PENDING");
 
-    repo.save(approval);
+    //repo.save(approval);
 
     System.out.println("Claim received → stored as pending.");
 }

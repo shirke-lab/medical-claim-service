@@ -1,10 +1,10 @@
-package com.service;
+package com.approver.service;
 
 
 
 import java.util.List;
 
-import com.model.Approval;
+import com.approver.model.Approval;
 
 
 public interface ApprovalService {

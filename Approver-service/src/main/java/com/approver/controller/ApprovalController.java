@@ -1,13 +1,13 @@
-package com.controller;
+package com.approver.controller;
 
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.model.Approval;
-import com.model.ClaimApproval;
-import com.service.ApprovalService;
-import com.service.ApprovalServiceImpl;
+import com.approver.model.Approval;
+import com.approver.model.*;
+import com.approver.service.ApprovalService;
+import com.approver.service.ApprovalServiceImpl;
 
 @RestController
 @RequestMapping("/approval")
@@ -37,8 +37,8 @@ public class ApprovalController {
 
     // Assign an approver (optional)
     @PostMapping("/assign/{id}")
-    public ResponseEntity<ClaimApproval> assign(@PathVariable Long id, @RequestParam String approverId) {
-        ClaimApproval updated = service.assignApprover(id, approverId);
+    public ResponseEntity<ClaimDecision> assign(@PathVariable Long id, @RequestParam String approverId) {
+    	ClaimDecision updated = service.assignApprover(id, approverId);
         return ResponseEntity.ok(updated);
     }
 }

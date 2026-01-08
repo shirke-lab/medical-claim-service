@@ -1,13 +1,13 @@
-package com.service;
+package com.approver.service;
 
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.model.Approval;
-import com.model.ClaimApproval;
-import com.repository.ApprovalRepository;
+import com.approver.model.Approval;
+import com.approver.model.*;
+import com.approver.repository.ApprovalRepository;
 
 
 @Service
@@ -58,7 +58,7 @@ public class ApprovalServiceImpl implements ApprovalService {
         return approvalRepo.save(c);
     }
 
-	public ClaimApproval assignApprover(Long id, String approverId) {
+	public ClaimDecision assignApprover(Long id, String approverId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

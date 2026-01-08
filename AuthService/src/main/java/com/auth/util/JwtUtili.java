@@ -16,6 +16,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 @Component
 public class JwtUtili {
 
@@ -67,5 +68,14 @@ public class JwtUtili {
         return roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+    }
+    @PostConstruct
+    public void checkKey() {
+        System.out.println("AUTH-SERVICE JWT SECRET LENGTH = " + key.getEncoded().length);
+    }
+    @PostConstruct
+    public void debugSecret() {
+        System.out.println("JWT SECRET = [" + new String(key.getEncoded()) + "]");
+        System.out.println("JWT SECRET LENGTH = " + key.getEncoded().length);
     }
 }

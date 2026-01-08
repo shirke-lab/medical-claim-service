@@ -1,4 +1,4 @@
-package com.rabbit;
+package com.approver.dto;
 
 public class ClaimMessage {
     private Long claimId;
@@ -31,8 +31,4 @@ public class ClaimMessage {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-    
-    
-    // getters, setters
 }

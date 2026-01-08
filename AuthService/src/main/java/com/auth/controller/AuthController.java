@@ -82,7 +82,7 @@ private UserLoginRequest ulr;
             User.Role roleEnum = User.Role.valueOf(req.getRole().toUpperCase());
             user.setRole(roleEnum);
         } catch (IllegalArgumentException | NullPointerException ex) {
-            return ResponseEntity.badRequest().body("Invalid role. Allowed: ADMIN, EMPLOYEE, APPROVER, ASSIGNER");
+            return ResponseEntity.badRequest().body("Invalid role. Allowed: ADMIN, EMPLOYEE, APPROVER, MANAGER");
         }
 
         userrepo.save(user);
