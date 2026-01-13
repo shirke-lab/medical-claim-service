@@ -1,7 +1,9 @@
 package com.claim.dto;
 
 public class ClaimMessage {
-
+public ClaimMessage(){
+	
+}
     private Long claimId;
     private String empId;
     private double amount;

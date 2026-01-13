@@ -21,7 +21,7 @@ public class ClaimProducer {
 	@Value("${rabbit.exchange}")
 	private String Exchange;
 
-	@Value("${rabbit.routingKey}")
+	  @Value("${rabbit.routingKey}")
 	private String routingKey;
 	
 	public void sendClaim(Claim claim) {

@@ -1,14 +1,11 @@
 package com.approver.repository;
-
-import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.approver.model.Approval;
+import com.approver.dto.ClaimdetailsFinal;
+
+//import com.approver.model.Approval;
 
 
-public interface ApprovalRepository extends JpaRepository<Approval, Long> {
+public interface ApprovalRepository extends JpaRepository<ClaimdetailsFinal, Long> {
 
-    List<Approval> findByStatus(String status);
-    List<Approval> findByApproverId(String approverId);
-    List<Approval> findByClaimId(Long claimId);
 }

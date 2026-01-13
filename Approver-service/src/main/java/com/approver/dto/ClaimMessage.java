@@ -2,11 +2,9 @@ package com.approver.dto;
 
 public class ClaimMessage {
     private Long claimId;
-    private String employeeId;
+    private String empId;
     private Double amount;
     private String description;
-
-	
     public Long getClaimId() {
 		return claimId;
 	}
@@ -14,10 +12,10 @@ public class ClaimMessage {
 		this.claimId = claimId;
 	}
 	public String getEmployeeId() {
-		return employeeId;
+		return empId;
 	}
 	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
+		this.empId = employeeId;
 	}
 	public Double getAmount() {
 		return amount;
@@ -30,5 +28,4 @@ public class ClaimMessage {
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-}
+	}}

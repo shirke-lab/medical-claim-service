@@ -15,7 +15,9 @@ public class AssignmentProducer {
     @Value("${rabbit.routing.assignment}") private String routingKey;
     public AssignmentProducer(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
+        System.out.println("we got the cabm in producer");
     }
-    public void sendAssignedbyManager(ClaimAssignedToApprover msg) {
-        rabbitTemplate.convertAndSend(exchange, routingKey, msg);		
+    public void sendAssignedbyManager(ClaimAssignedbyManager cabm) {
+        rabbitTemplate.convertAndSend(exchange, routingKey, cabm);	
+        System.out.println("we are pushing this msg to approver service  "+(cabm.getclaimId()));
     }}

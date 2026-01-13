@@ -4,10 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import com.auth.AuthService;
 import com.auth.model.User;
 import com.auth.model.UserLoginRequest;
 import com.auth.model.createUserRequest;
@@ -18,7 +22,6 @@ import com.auth.util.JwtUtili;
 @RestController
 public class AuthController {
 
-    
     private final UserRepository userrepo;
     private final JwtUtili jwtutil;
     
@@ -61,7 +64,8 @@ private UserLoginRequest ulr;
 //        String token = jwtutil.generateToken(user.getUserid(), List.of(rolePrefix));
 
         String token = jwtutil.generateToken(user.getUserid(), List.of(role));
-
+        
+        
         return ResponseEntity.ok(new JwtResponse(token));
     }
     @PostMapping("/createUser")

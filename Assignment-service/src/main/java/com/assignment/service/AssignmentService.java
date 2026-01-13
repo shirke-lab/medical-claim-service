@@ -55,6 +55,7 @@ private final ClaimAssignedByManagerRepository cabmrepo;
  				  cabm.setManagerId(jwtutil.getCurrentUSerId());
  				 // @EnumeratedValue(value=assignmentStatus)
  				  cabm.setStatus(assignmentStatus.REASSIGNED);
+ 				 producer.sendAssignedbyManager(cabm);
  				  return "claim is reassigned to approver "+approverId;
  			  }
  		    }
@@ -74,6 +75,9 @@ private final ClaimAssignedByManagerRepository cabmrepo;
  		   
  		    cabmrepo.save(cabm);
  		    repo.updateStatus(claimId, "ASSIGNED");//update status in claim assignment table
+ 		   
+ 				 producer.sendAssignedbyManager(cabm);
+ 				   
  		    return "Claim " + claimId + " is assigned to " + approverId + " by " + managerId;
  		}
 }
