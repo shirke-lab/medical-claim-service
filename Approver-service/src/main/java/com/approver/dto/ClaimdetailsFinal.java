@@ -13,8 +13,11 @@ public class ClaimdetailsFinal {
     private String empId;
     private Double amount;
     private String description;
-
-	
+private String status;
+	private String remarks;
+	public void setRemarks(String remarks) {
+		this.remarks=remarks;
+	}
     public Long getClaimId() {
 		return claimId;
 	}
@@ -39,4 +42,8 @@ public class ClaimdetailsFinal {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+public void setstatus(String status) {
+	this.status=status;
+}
+
 }

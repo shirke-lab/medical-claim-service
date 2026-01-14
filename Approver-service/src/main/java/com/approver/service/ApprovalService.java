@@ -24,7 +24,7 @@ public class ApprovalService {
     public ClaimdetailsFinal getClaimDetailsfromClaimService(Long claimId) {
         // If your claim service requires authentication, set headers here
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjgyOTMwMDksImV4cCI6MTc2ODI5OTAwOX0.GgdEFCeKXWwQOm_HlaNNvUldsVkKdQN8Dj3YsK2gKFE");
+        headers.setBearerAuth("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjgzMTE4NjUsImV4cCI6MTc2ODMxNzg2NX0.VyuuMxXCQHveLXCWbbjg1X33BfgLamLgJUHOZngF380");
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         ResponseEntity<ClaimdetailsFinal> response = restTemplate.exchange(
@@ -41,9 +41,8 @@ public class ApprovalService {
             System.out.println("Amount: " + dto.getAmount());
             System.out.println("EmpId: " + dto.getEmpId());
             System.out.println("description: " + dto.getDescription());
-            aprepo.save(dto);
-            
-            
+            aprepo.save(dto);          
+ 
         } else {
             System.out.println("No claim details found for ID: " + claimId);
         }
