@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.auth.AuthService;
 import com.auth.model.User;
@@ -18,7 +19,7 @@ import com.auth.model.createUserRequest;
 import com.auth.repository.UserRepository;
 import com.auth.util.JwtResponse;
 import com.auth.util.JwtUtili;
-
+@RequestMapping("/auth")
 @RestController
 public class AuthController {
 
@@ -92,18 +93,11 @@ private UserLoginRequest ulr;
         userrepo.save(user);
         return ResponseEntity.ok("User created successfully");
     }
-
     @GetMapping("/allUsers")
     public List<User> getAllUserList(){
-    	
-    	List<User> userList=userrepo.findAll();
+        	List<User> userList=userrepo.findAll();
     	System.out.println("all users list is providing");
     	//System.out.println(userList.toString());
     	userList.forEach(u->System.out.println(u));
-    	
-    	return userList;
-    	
-    }
-
-
-}
+        	return userList;
+        }}

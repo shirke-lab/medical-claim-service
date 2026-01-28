@@ -1,9 +1,6 @@
 package com.approver.model;
 
 import jakarta.persistence.Entity;
-
-import java.time.Instant;
-
 import jakarta.persistence.*;
 
 @Entity

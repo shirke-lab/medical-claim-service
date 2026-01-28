@@ -56,12 +56,4 @@ public class ApprovalController {
     	
     	
         return ResponseEntity.ok(updated);
-    }
-//
-//    // Assign an approver (optional)
-//    @PostMapping("/assign/{id}")
-//    public ResponseEntity<ClaimIdReceived> assign(@PathVariable Long id, @RequestParam String approverId) {
-//    	ClaimIdReceived updated = service.assignApprover(id, approverId);
-//        return ResponseEntity.ok(updated);
-//    }
-}
+    }}

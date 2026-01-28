@@ -1,5 +1,7 @@
 package com.approver.dto;
 
+import jakarta.annotation.Nonnull;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,6 +11,7 @@ public class ClaimdetailsFinal {
 	@jakarta.persistence.Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long Id;
+	@Nonnull @Column(unique = true)
 	private Long claimId;
     private String empId;
     private Double amount;
@@ -45,5 +48,10 @@ private String status;
 public void setstatus(String status) {
 	this.status=status;
 }
-
+public String getStatus() {
+	return status;
+}
+public String getRemarks() {
+	return remarks;
+}
 }
