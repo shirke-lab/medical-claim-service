@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  mysql-db:
+    image: mysql:8
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: authservicedb
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  auth-service:
+    build: .
+    container_name: auth-service
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:mysql://mysql-db:3306/authservicedb
+      DB_USERNAME: root
+      DB_PASSWORD: admin
+      JWT_SECRET: ReplaceWithASecureLongRandomStringAtLeast32CharsLong
+    depends_on:
+      - mysql-db
+
+volumes:
+  mysql_data:

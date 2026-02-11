@@ -4,7 +4,7 @@ package com.auth.model;
 import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.Entity;
 
-
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 
@@ -30,8 +30,27 @@ public class User {
     public enum Role {
         ADMIN, EMPLOYEE, APPROVER, MANAGER
     }
+@Column(nullable=false)
+    private int failedAttempts=0;
+    private LocalDateTime lockTime;
+    
+    public int getFailedAttempts() {
+		return failedAttempts;
+	}
 
-    // getters and setters
+	public void setFailedAttempts(int failedAttempts) {
+		this.failedAttempts = failedAttempts;
+	}
+
+	public LocalDateTime getLockTime() {
+		return lockTime;
+	}
+
+	public void setLockTime(LocalDateTime lockTime) {
+		this.lockTime = lockTime;
+	}
+
+	// getters and setters
     public Long getId() { return id; }
 
     public String getUserid() { return userid; }
@@ -47,4 +66,13 @@ public class User {
             ", userid='" + userid + '\'' +
             ", role=" + role +
             '}';  }
+
+public boolean isAccountLocked() {
+	if(lockTime==null) {return false;}
+	return lockTime.plusMinutes(15).isAfter(lockTime.now());
+}
+public void resetLock() {
+	this.failedAttempts=0;
+	this.lockTime=null;
+}
 }

@@ -26,12 +26,9 @@ public class JwtUtili {
     public JwtUtili(@Value("${jwt.secret}") String secret) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
-
-
     // Generate token with roles
     public String generateToken(String username, List<String> roles) {
-    	
-        return Jwts.builder()
+    	        return Jwts.builder()
                 .setSubject(username)
                 .claim("roles", roles)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -39,15 +36,12 @@ public class JwtUtili {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
- 
-    public String extractUserName(String token) {
+     public String extractUserName(String token) {
         return getClaims(token).getSubject();
     }
-
     public Boolean validateToken(String token, String username) {
         return (username.equals(extractUserName(token))&& !isTokenExpired(token));
     }
-
     private Boolean isTokenExpired(String token) {
         return getClaims(token).getExpiration().before(new Date());
     }
@@ -59,7 +53,6 @@ public class JwtUtili {
                 .parseClaimsJws(token)
                 .getBody();
     }
-
     // Extract authorities from token
     public List<GrantedAuthority> extractAuthorities(String token) {
         Claims claims = getClaims(token);

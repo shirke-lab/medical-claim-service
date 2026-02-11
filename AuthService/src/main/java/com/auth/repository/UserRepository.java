@@ -11,5 +11,5 @@ import com.auth.model.createUserRequest;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 	public Optional<User> findByUserid(String uname);
-	public createUserRequest save(createUserRequest user);// added for troubleshooting 
+	//public createUserRequest save(createUserRequest user);// added for troubleshooting 
 }

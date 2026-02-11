@@ -1,5 +1,6 @@
 package com.auth.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,11 +50,25 @@ private UserLoginRequest ulr;
         }
 
         User user = userOpt.get();
-
-        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
+//check if account is locked
+        if(user.isAccountLocked()) {
+        	return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Your account is locker. tryagain after 15 mins.");
         }
-
+        
+        //validating password
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+                int attempts=user.getFailedAttempts()+1;
+        user.setFailedAttempts(attempts);
+        if(attempts>=3) {
+        	user.setLockTime(LocalDateTime.now());
+        }
+userrepo.save(user);
+return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password attempt" + attempts+"of 3");
+        }
+        
+        //Correct password
+        user.resetLock();
+        userrepo.save(user);
        // String rolePrefix = user.getRole().startsWith("ROLE_") ? user.getRole() : "ROLE_" + user.getRole();
         
         String role = user.getRole().name();  // e.g. "ADMIN"
