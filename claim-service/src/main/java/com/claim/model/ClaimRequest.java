@@ -7,8 +7,6 @@ public class ClaimRequest {
 	public String empid;
 	public String description;
 	
-	
-	
 	public String getempid() {
 		return empid;
 	}

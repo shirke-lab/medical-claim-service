@@ -30,7 +30,7 @@ public class Jwtutil {
 
     public Jwtutil(@Value("${jwt.secret}") String secret) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-    }
+    } 
 
     /*
 public String generateToken(String username, List<String> roles) {
@@ -84,6 +84,6 @@ public boolean validateToken(String token, String userName) {
 }
 public String getCurrentUSerId() {
 	Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-	return auth.getName();
+	return auth.getName().trim();
 }
 }

@@ -42,12 +42,10 @@ public class ApprovalService {
             System.out.println("EmpId: " + dto.getEmpId());
             System.out.println("description: " + dto.getDescription());
             aprepo.save(dto);          
- 
-        } else {
+         }
+        else{
             System.out.println("No claim details found for ID: " + claimId);
         }
-
         return dto;
-    }
-}
+    }}
 

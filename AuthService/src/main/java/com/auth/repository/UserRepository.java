@@ -10,6 +10,7 @@ import com.auth.model.createUserRequest;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	public Optional<User> findByUserid(String uname);
+	public Optional<User> findByUserid(String userid);
+	       //Optional<User> findByUserid(String userid);
 	//public createUserRequest save(createUserRequest user);// added for troubleshooting 
 }

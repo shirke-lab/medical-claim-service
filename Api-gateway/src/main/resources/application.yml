@@ -26,6 +26,8 @@ spring:
           uri: http://localhost:8082
           predicates:
              - Path=/assign/**
+          filters:
+           - StripPrefix=1
 
         - id: Approver-service
           uri: http://localhost:8083

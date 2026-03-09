@@ -18,8 +18,11 @@ import com.auth.model.User;
 import com.auth.model.UserLoginRequest;
 import com.auth.model.createUserRequest;
 import com.auth.repository.UserRepository;
+import com.auth.service.AuthControllerService;
 import com.auth.util.JwtResponse;
 import com.auth.util.JwtUtili;
+
+import jakarta.transaction.Transactional;
 @RequestMapping("/auth")
 @RestController
 public class AuthController {
@@ -31,60 +34,62 @@ public class AuthController {
     	this.userrepo = userrepo;
 		this.jwtutil=jwtutil;
     }
+    @Autowired
+    AuthControllerService authServic;
     
-    
-private UserLoginRequest ulr;
+    private UserLoginRequest ulr;
     @Autowired
     private PasswordEncoder passwordEncoder;
     
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginRequest loginRequest) {
 
         System.out.println("User ID = " + loginRequest.getUserid());
-
-        Optional<User> userOpt = userrepo.findByUserid(loginRequest.getUserid());
+String s=loginRequest.getUserid();
+        Optional<User> userOpt = userrepo.findByUserid(s);
 
         if (userOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("User not found");
         }
 
         User user = userOpt.get();
-//check if account is locked
-        if(user.isAccountLocked()) {
-        	return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Your account is locker. tryagain after 15 mins.");
-        }
-        
-        //validating password
-        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-                int attempts=user.getFailedAttempts()+1;
-        user.setFailedAttempts(attempts);
-        if(attempts>=3) {
-        	user.setLockTime(LocalDateTime.now());
-        }
-userrepo.save(user);
-return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password attempt" + attempts+"of 3");
-        }
-        
-        //Correct password
-        user.resetLock();
-        userrepo.save(user);
-       // String rolePrefix = user.getRole().startsWith("ROLE_") ? user.getRole() : "ROLE_" + user.getRole();
-        
-        String role = user.getRole().name();  // e.g. "ADMIN"
-        //String role = roleName.startsWith("ROLE_") ? roleName : "ROLE_" + roleName;
 
-        if (!role.startsWith("ROLE_")) {
-            role = "ROLE_" + role;
+        //Unlock account if lock duration expired
+        authServic.unlockIfLockExpired(user);
+
+        // Reset failed attempts if 15 mins passed after single attempt
+        authServic.resetCounterIfTimeExpired(user);
+
+        // Check if still locked
+        if (!user.isAccountNonLocked()) {
+        	Long RemainingMinutes=authServic.checkRemainingTime(user);        	
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Account is locked. You can try after "+RemainingMinutes+" minutes");
         }
-//        String token = jwtutil.generateToken(user.getUserid(), List.of(rolePrefix));
+
+        //  Validate password
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+
+            authServic.increaseFailedAttempts(user);
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Invalid credentials. Attempt "
+                            + user.getFailedAttempts() + " of 3");
+        }
+
+        // 5️⃣ Successful login → reset counter
+        authServic.resetFailedAttempts(user);
+
+        String role = "ROLE_" + user.getRole().name();
 
         String token = jwtutil.generateToken(user.getUserid(), List.of(role));
-        
-        
+
         return ResponseEntity.ok(new JwtResponse(token));
     }
+    
     @PostMapping("/createUser")
+    @Transactional
     public ResponseEntity<?> createUser(@RequestBody createUserRequest req) {
         Optional<User> userAlreadyAvailable = userrepo.findByUserid(req.getUserid());
         if (userAlreadyAvailable.isPresent()) {

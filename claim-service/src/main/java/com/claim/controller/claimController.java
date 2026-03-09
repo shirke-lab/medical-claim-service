@@ -1,4 +1,6 @@
 package com.claim.controller;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,9 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.claim.dto.Claimdetails;
+import com.claim.model.Claim;
 import com.claim.model.ClaimRequest;
 import com.claim.repository.ClaimRepository;
 import com.claim.service.ClaimService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/claims")
@@ -22,7 +27,7 @@ public class claimController {
 				this.claimrepo=claimrepo;
 	}
 		@PostMapping("/create")
-	public ResponseEntity<?> createClaim(@RequestBody ClaimRequest request){
+	public ResponseEntity<Claim> createClaim(@RequestBody ClaimRequest request){
 		System.out.println("employee id is "+request.getempid());
 		System.out.println("claim description -"+request.getdescription());
 		System.out.println("amount is -"+request.getamount());
@@ -46,6 +51,16 @@ public ResponseEntity<Claimdetails> getClaimDetails(@PathVariable Long claimId){
 			})
 			.map(ResponseEntity::ok)
 			.orElse(ResponseEntity.notFound().build());
-	
 }
+
+@GetMapping("/claims/claim/myclaims")
+public List<Claim> claimRaisedByMe(String EmpId) {
+	
+	List <Claim> claimList= claimService.claimRaisedByMe(String EmpId);
+	return claimList;
+}
+public String getMethodName(@RequestParam String param) {
+    return new String();
+}
+
 }

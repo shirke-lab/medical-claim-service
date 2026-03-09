@@ -13,9 +13,7 @@ public class ClaimListener {
 	
 	private final ClaimIdReceivedRepository repo;
 
-	
-    public ClaimListener(ClaimIdReceivedRepository repo){
-
+	public ClaimListener(ClaimIdReceivedRepository repo){
 		this.repo = repo;
 		
     }
@@ -28,7 +26,7 @@ ClaimIdReceived cd= new ClaimIdReceived();
     	System.out.println("New MESSAGE RECEIVED: " + message.getClaimId());
     	
 
-    System.out.println("Claim received → stored as pending.");
+    System.out.println("Claim received -> stored as pending.");
 }
 }
 

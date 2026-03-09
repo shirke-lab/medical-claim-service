@@ -19,10 +19,9 @@ public class SecurityConfig {
 
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll()  // you can secure this later
+                .anyRequest().hasRole("APPROVER")  // you can secure this later
             )
             .httpBasic(Customizer.withDefaults());
-
         return http.build();
     }
 }

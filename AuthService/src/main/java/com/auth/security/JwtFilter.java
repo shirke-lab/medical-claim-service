@@ -1,10 +1,12 @@
 package com.auth.security;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.*;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -47,14 +49,12 @@ public class JwtFilter extends OncePerRequestFilter {
                 jwtUtil.validateToken(token, username)) {
 
                 List<GrantedAuthority> authorities = jwtUtil.extractAuthorities(token);
-
-                UsernamePasswordAuthenticationToken auth =
+               UsernamePasswordAuthenticationToken auth =
                         new UsernamePasswordAuthenticationToken(username, null, authorities);
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
         }
-
         filterChain.doFilter(request, response);
     }
 }

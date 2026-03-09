@@ -22,14 +22,13 @@ public class SecurityConfig {
 	this.jwtFilter=jwtFilter;
 	}
 	
-	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http )throws IOException{
 	
 		http.csrf(csrf -> csrf.disable())
 		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 		.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/assignment/**").hasRole("MANAGER")
+				.requestMatchers("/assign/**").hasAnyRole("ADMIN","MANAGER")
 				.anyRequest().authenticated()
 				).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

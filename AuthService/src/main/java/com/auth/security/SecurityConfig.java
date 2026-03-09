@@ -15,17 +15,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 	@Configuration
 	@EnableMethodSecurity
 	public class SecurityConfig {
-	
-	    @Bean
+		    @Bean
 	    PasswordEncoder passwordEncoder() {
 	        return new BCryptPasswordEncoder();
 	    }
-	
-	    @Bean
+		    @Bean
 	    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtUtili jwtUtili) throws Exception {
-	
-	        http
-	            .csrf(csrf -> csrf.disable())
+		        http.csrf(csrf -> csrf.disable())
 	            .authorizeHttpRequests(auth -> auth
 	            		.requestMatchers("/login", "/createUser").permitAll().           		
 	            		anyRequest().permitAll()
